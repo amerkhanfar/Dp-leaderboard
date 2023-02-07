@@ -12,6 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   /* background: linear-gradient(
     39deg,
     rgba(32, 16, 52, 1) 0%,
@@ -176,14 +177,13 @@ function renderSwitch(param) {
 export default function Home() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loader, setLoader] = useState(true);
-  const fetchData = () => {
+  const fetchData = async () => {
+    console.log(11);
     try {
-      setInterval(async () => {
-        const response = await axios.get(
-          "https://oplus.dev/apps/dw_game/api/high-score",
-        );
-        setLeaderboard(response.data);
-      }, 60000);
+      const response = await axios.get(
+        "https://oplus.dev/apps/dw_game/api/high-score",
+      );
+      setLeaderboard(response.data);
 
       setLoader(false);
     } catch (error) {
@@ -193,6 +193,12 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 600000);
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
   return (
     <Container>
