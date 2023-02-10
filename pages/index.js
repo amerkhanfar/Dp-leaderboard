@@ -24,8 +24,8 @@ const Container = styled.div`
 
 const Logo = styled.div`
   background-image: url("/white.png");
-  width: 200px;
-  height: 200px;
+  width: 185px;
+  height: 185px;
   background-size: contain;
   background-repeat: no-repeat;
   transition: all 2s;
@@ -84,12 +84,12 @@ const Card = styled.div`
   color: black;
   font-size: 16px;
   position: relative;
-  width: 11vw;
+  width: 10vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 9.5vw;
+  height: 7.5vw;
   background: rgb(32, 16, 52);
   background: #d3d3d3;
   border-radius: 10px;
@@ -125,16 +125,16 @@ const BottomLeft = styled.div`
 `;
 
 const CardInfo = styled.div`
-  font-size: 20px;
+  font-size: 17px;
   text-align: center;
 `;
 
 const Circle = styled.div`
   position: absolute;
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
 
-  top: -50px;
+  top: -30px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -146,7 +146,7 @@ function renderSwitch(param) {
     case 0:
       return (
         <Circle style={{ background: "gold" }}>
-          <p style={{ color: "white", fontSize: "20px", fontWeight: "bold" }}>
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
             1st
           </p>
         </Circle>
@@ -155,7 +155,7 @@ function renderSwitch(param) {
       return (
         <Circle style={{ background: "silver" }}>
           {" "}
-          <p style={{ color: "white", fontSize: "20px", fontWeight: "bold" }}>
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
             2nd
           </p>
         </Circle>
@@ -165,20 +165,84 @@ function renderSwitch(param) {
       return (
         <Circle style={{ background: "#CD7F32" }}>
           {" "}
-          <p style={{ color: "white", fontSize: "20px", fontWeight: "bold" }}>
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
             3rd
           </p>
         </Circle>
       );
+    case 20:
+      return (
+        <Circle style={{ background: "#4664AC" }}>
+          {" "}
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
+            21st
+          </p>
+        </Circle>
+      );
+
+    case 21:
+      return (
+        <Circle style={{ background: "#4664AC" }}>
+          {" "}
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
+            22nd
+          </p>
+        </Circle>
+      );
+
+    case 22:
+      return (
+        <Circle style={{ background: "#4664AC" }}>
+          {" "}
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
+            23rd
+          </p>
+        </Circle>
+      );
+
+    case 30:
+      return (
+        <Circle style={{ background: "#4664AC" }}>
+          {" "}
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
+            31st
+          </p>
+        </Circle>
+      );
+
+    case 31:
+      return (
+        <Circle style={{ background: "#4664AC" }}>
+          {" "}
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
+            32nd
+          </p>
+        </Circle>
+      );
+
+    case 32:
+      return (
+        <Circle style={{ background: "#4664AC" }}>
+          {" "}
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
+            33rd
+          </p>
+        </Circle>
+      );
     default:
-      return null;
+      return (
+        <Circle style={{ background: "#4664AC" }}>
+          <p style={{ color: "white", fontSize: "15px", fontWeight: "bold" }}>
+            {param + 1}th
+          </p>
+        </Circle>
+      );
   }
 }
 export default function Home() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loader, setLoader] = useState(true);
   const fetchData = async () => {
-    console.log(11);
     try {
       const response = await axios.get(
         "https://oplus.dev/apps/dw_game/api/high-score",
@@ -195,7 +259,7 @@ export default function Home() {
     fetchData();
     const intervalId = setInterval(() => {
       fetchData();
-    }, 600000);
+    }, 120000);
     return () => {
       clearInterval(intervalId);
     };
@@ -234,7 +298,7 @@ export default function Home() {
         <CardContainer>
           {leaderboard.map((score, i) => {
             return (
-              <Card key={score.id}>
+              <Card key={i}>
                 {renderSwitch(i)}
                 <CardInfo>
                   {/* {score.name.charAt(0).toUpperCase() + score.name.slice(1)} */}
