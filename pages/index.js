@@ -4,6 +4,7 @@ import { Participants } from "../data";
 import { ColorRing } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { data } from "../data";
 
 import styled from "styled-components";
 
@@ -82,14 +83,14 @@ const Card = styled.div`
 
   color: white;
   color: black;
-  font-size: 16px;
+  font-size: 14px;
   position: relative;
   width: 10vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 7.5vw;
+  height: 6.5vw;
   background: rgb(32, 16, 52);
   background: #d3d3d3;
   border-radius: 10px;
@@ -125,7 +126,7 @@ const BottomLeft = styled.div`
 `;
 
 const CardInfo = styled.div`
-  font-size: 17px;
+  font-size: 14px;
   text-align: center;
 `;
 

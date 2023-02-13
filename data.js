@@ -1,4 +1,4 @@
-export const Participants = [
+export const data = [
   {
     id: 1,
     name: "amer khanfar",
@@ -136,6 +136,41 @@ export const Participants = [
   },
   {
     id: 28,
+    name: "amer khanfar",
+    score: 1,
+  },
+  {
+    id: 27,
+    name: "amer khanfar",
+    score: 1,
+  },
+  {
+    id: 28,
+    name: "amer khanfar",
+    score: 1,
+  },
+  {
+    id: 27,
+    name: "amer khanfar",
+    score: 1,
+  },
+  {
+    id: 28,
+    name: "amer khanfar",
+    score: 1,
+  },
+  {
+    id: 27,
+    name: "amer khanfar",
+    score: 1,
+  },
+  {
+    id: 28,
+    name: "amer khanfar",
+    score: 1,
+  },
+  {
+    id: 27,
     name: "amer khanfar",
     score: 1,
   },
