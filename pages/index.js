@@ -85,12 +85,12 @@ const Card = styled.div`
   color: black;
   font-size: 14px;
   position: relative;
-  width: 10vw;
+  width: 17vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 6.5vw;
+  height: 6vh;
   background: rgb(32, 16, 52);
   background: #d3d3d3;
   border-radius: 10px;
