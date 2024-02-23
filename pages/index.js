@@ -90,7 +90,7 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 6vh;
+  height: 7vh;
   background: rgb(32, 16, 52);
   background: #d3d3d3;
   border-radius: 10px;
