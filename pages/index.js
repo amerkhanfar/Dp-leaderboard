@@ -5,7 +5,6 @@ import { ColorRing } from "react-loader-spinner";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { data } from "../data";
-
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -243,6 +242,55 @@ function renderSwitch(param) {
 export default function Home() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loader, setLoader] = useState(true);
+  const [department, setDepartment] = useState([]);
+  const [transition, setTransition] = useState(false);
+
+  const departmentScores = [
+    { name: "CHO", score: 85 },
+    { name: "GCC", score: 72 },
+    { name: "MENA", score: 90 },
+    { name: "SSA", score: 78 },
+    { name: "DDW", score: 88 },
+    { name: "POML", score: 75 },
+    { name: "WORLD SECURITY", score: 82 },
+    { name: "OTHER", score: null },
+    { name: "CORPORATE (HO) ADMINISTRATION", score: 83 },
+    { name: "DP WORLD FOUNDATION", score: 79 },
+    { name: "GROUP PEOPLE", score: 87 },
+    { name: "GROUP SECURITY", score: 76 },
+    { name: "GROUP SUSTAINABILITY", score: 84 },
+    { name: "GLOBAL LOGISTICS", score: 80 },
+    { name: "CARGOES CUSTOMS", score: 85 },
+    { name: "DT WORLD", score: 81 },
+    { name: "DIGITAL TECHNOLOGY", score: 89 },
+    { name: "GROUP TECHNOLOGY", score: 86 },
+    { name: "E-COMMERCE", score: 88 },
+    { name: "FINANCIAL SERVICES LIMITED", score: 90 },
+    { name: "SEARATES", score: 83 },
+    { name: "WORLD LOGISTICS PASSPORT", score: 77 },
+    { name: "COMMERCIAL - INTERNATIONAL PORTS & TERMINALS", score: 92 },
+    { name: "GLOBAL ENGINEERING", score: 78 },
+    { name: "GLOBAL AUTOMATION", score: 85 },
+    { name: "GLOBAL OPERATIONS", score: 91 },
+    { name: "GOVERNMENT AFFAIRS", score: 76 },
+    { name: "GROUP COMMUNICATIONS", score: 79 },
+    { name: "GROUP CORPORATE SECRETARIAT", score: 82 },
+    { name: "GROUP HSE", score: 88 },
+    { name: "GROUP LEGAL", score: 85 },
+    { name: "GROUP PLANNING & PROJECT MANAGEMENT", score: 90 },
+    { name: "PORTS & TERMINALS", score: 84 },
+    { name: "WORLD CRANE SERVICES", score: 81 },
+    { name: "GROUP CORPORATE FINANCE & BUSINESS DEVELOPMENT", score: 89 },
+    { name: "GROUP FINANCE", score: 86 },
+    { name: "GROUP INSURANCE", score: 83 },
+    { name: "GROUP INTERNAL AUDIT", score: 80 },
+    { name: "GROUP PAYROLL", score: 84 },
+    { name: "GROUP PROCUREMENT", score: 87 },
+    { name: "GROUP TAX", score: 81 },
+    { name: "GROUP TREASURY", score: 85 },
+    { name: "INVESTOR RELATIONS", score: 88 },
+  ];
+
   const fetchData = async () => {
     try {
       const response = await axios.get(
@@ -250,21 +298,42 @@ export default function Home() {
       );
       setLeaderboard(response.data);
 
+      console.log(leaderboard);
+
       setLoader(false);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const fetchDepartment = async () => {
+    try {
+      const response = await axios.get(
+        "https://oplus.dev/apps/dw_game/api/department-score",
+      );
+      setDepartment(response.data);
+      console.log(response.data);
+      setLoader(false);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // setDepartment(departmentScores);
+  };
+
   useEffect(() => {
     fetchData();
+    fetchDepartment();
     const intervalId = setInterval(() => {
       fetchData();
-    }, 120000);
+      fetchDepartment();
+      setTransition(!transition);
+      console.log(transition);
+    }, 90000);
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [transition]);
   return (
     <Container>
       <Topright />
@@ -296,22 +365,39 @@ export default function Home() {
           />
         </CenterLoader>
       ) : (
-        <CardContainer>
-          {leaderboard.map((score, i) => {
-            return (
-              <Card key={i}>
-                {renderSwitch(i)}
-                <CardInfo>
-                  {/* {score.name.charAt(0).toUpperCase() + score.name.slice(1)} */}
-                  {score.name.split(" ")[0] +
-                    " " +
-                    (score.name.split(" ")[1] || "")}
-                </CardInfo>
-                <CardInfo>Score: {score.score}</CardInfo>
-              </Card>
-            );
-          })}
-        </CardContainer>
+        <>
+          {transition ? (
+            <CardContainer>
+              {/* Cards for transition true */}
+              {leaderboard.map((score, i) => {
+                return (
+                  <Card key={i}>
+                    {renderSwitch(i)}
+                    <CardInfo>
+                      {score.name.split(" ")[0] +
+                        " " +
+                        (score.name.split(" ")[1] || "")}
+                    </CardInfo>
+                    <CardInfo>Score: {score.score}</CardInfo>
+                  </Card>
+                );
+              })}
+            </CardContainer>
+          ) : (
+            <CardContainer>
+              {/* Cards for transition false */}
+              {department.map((dept, i) => {
+                return (
+                  <Card key={i}>
+                    {renderSwitch(i)}
+                    <CardInfo>{dept.department}</CardInfo>
+                    <CardInfo>Score: {dept.score}</CardInfo>
+                  </Card>
+                );
+              })}
+            </CardContainer>
+          )}
+        </>
       )}
     </Container>
   );
